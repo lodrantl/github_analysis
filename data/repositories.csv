@@ -1,0 +1,11 @@
+owner,name,language,stargazers_count,commit_count,branch_count,release_count,open_issues_count,watchers_count,contributor_count,forks_count,license,created_at,pushed_at,updated_at
+FreeCodeCamp,FreeCodeCamp,JavaScript,184749,9,17,493,222,184749,0,7033,Other,2014-12-24T17:49:19Z,2016-10-19T08:09:06Z,2016-10-19T14:22:24Z
+twbs,bootstrap,JavaScript,102471,14,20,779,452,102471,39,46165,MIT License,2011-07-29T21:19:00Z,2016-10-19T13:18:32Z,2016-10-19T14:20:05Z
+vhf,free-programming-books,,68298,4,3,790,29,68298,0,16553,Other,2013-10-11T06:50:37Z,2016-10-19T11:05:38Z,2016-10-19T14:20:33Z
+d3,d3,JavaScript,55981,4,34,116,121,55981,204,15018,"BSD 3-clause ""New"" or ""Revised"" License",2010-09-27T17:22:42Z,2016-10-12T10:18:02Z,2016-10-19T14:03:06Z
+angular,angular.js,JavaScript,52820,8,15,1,850,52820,177,26039,MIT License,2010-01-06T00:34:37Z,2016-10-19T12:28:20Z,2016-10-19T14:13:14Z
+facebook,react,JavaScript,52012,7,28,809,718,52012,52,9107,"BSD 3-clause ""New"" or ""Revised"" License",2013-05-24T16:15:54Z,2016-10-19T11:12:38Z,2016-10-19T14:13:18Z
+FortAwesome,Font-Awesome,HTML,45666,1,11,75,3754,45666,23,7876,None,2012-02-17T14:19:43Z,2016-10-14T02:41:56Z,2016-10-19T14:13:30Z
+sindresorhus,awesome,,44818,582,1,251,30,44818,0,5333,None,2014-07-11T13:42:37Z,2016-10-18T11:40:51Z,2016-10-19T14:19:04Z
+robbyrussell,oh-my-zsh,Shell,43982,4,1,1,792,43982,0,10947,MIT License,2009-08-28T18:15:37Z,2016-10-19T13:58:00Z,2016-10-19T14:16:08Z
+getify,You-Dont-Know-JS,JavaScript,43345,1,1,143,84,43345,0,6271,Other,2013-11-16T02:37:24Z,2016-10-01T23:04:43Z,2016-10-19T13:47:48Z
