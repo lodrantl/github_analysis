@@ -1,0 +1,15 @@
+# Sphinx documentation
+docs/_build/
+
+# IPython Notebook
+.ipynb_checkpoints
+
+.gitignore
+
+.idea/
+__pycache__/
+
+github_analysis/__pycache__/
+
+# GitHub credentials
+github_analysis/credentials
