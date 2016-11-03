@@ -11,12 +11,15 @@ import re
 import json
 import csv
 from urllib.parse import urlencode
+from tqdm import tqdm
 
 GITHUB_MOST_STARRED_URL="https://github.com/search?o=desc&p={}&q=stars%3A%3E1&s=stars&type=Repositories"
 GITHUB_SITE_URL = "https://github.com/"
 GITHUB_API_URL = "https://api.github.com/repos/"
 GITHUB_SEARCH_API_URL = "https://api.github.com/search/repositories"
 CSV_FILENAME = "../data/repositories.csv"
+
+OAUTH_CLIENT, OAUTH_SECRET = open('credentials', 'r').read().strip().split(":")
 
 
 def get_repository_regex(full_name):
@@ -28,7 +31,7 @@ def get_repository_regex(full_name):
 
     """
 
-    site = requests.get(GITHUB_SITE_URL + full_name).text
+    site = requests.get(GITHUB_SITE_URL + full_name, auth=(OAUTH_CLIENT, OAUTH_SECRET)).text
 
     # get commit, branch, release, and contributor
     regex_cbrcl = re.compile(r'<li class="commits">.*?<span class="num text-emphasized">.*?(\d+).*?</span>'
@@ -53,7 +56,7 @@ def get_repository_licence(full_name):
     :return: Licence name
     """
 
-    license_json_data = requests.get(GITHUB_API_URL + full_name + "/license").text
+    license_json_data = requests.get(GITHUB_API_URL + full_name + "/license", auth=(OAUTH_CLIENT, OAUTH_SECRET)).text
 
     license_data = json.loads(license_json_data)
 
@@ -72,10 +75,10 @@ def fill_repository(data):
 
     """
 
+
     result = {
         "name": data["name"],
         "owner": data["owner"]["login"],
-        "watchers_count": data["watchers_count"],
         "stargazers_count": data["stargazers_count"],
         "forks_count": data["forks_count"],
         "open_issues_count": data["open_issues_count"],
@@ -111,7 +114,7 @@ def repository_generator(n):
     for i in range(1,n+1):
         request_data["page"] = i
 
-        site = requests.get(GITHUB_SEARCH_API_URL + "?" + urlencode(request_data)).text
+        site = requests.get(GITHUB_SEARCH_API_URL + "?" + urlencode(request_data), auth=(OAUTH_CLIENT, OAUTH_SECRET)).text
 
         repository_list = json.loads(site)["items"]
 
@@ -122,16 +125,19 @@ def repository_generator(n):
 def main():
     """
     When ran as script, downloads most starred repositories from Github and writes data to CSV
+    Maintains a progressbar
     :return:
     """
 
-    with open(CSV_FILENAME, 'w', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, dialect='excel', fieldnames=['owner', 'name', 'language', 'stargazers_count',  'commit_count', 'branch_count', 'release_count', 'open_issues_count',  'watchers_count', 'contributor_count', 'forks_count', 'license', 'created_at', 'pushed_at', 'updated_at'], )
+    with open(CSV_FILENAME, 'w', newline='', encoding='utf-8') as f, tqdm(total=1000) as pbar:
+        writer = csv.DictWriter(f, dialect='excel', fieldnames=['owner', 'name', 'language', 'stargazers_count',  'commit_count', 'branch_count', 'release_count', 'open_issues_count', 'contributor_count', 'forks_count', 'license', 'created_at', 'pushed_at', 'updated_at'], )
         writer.writeheader()
 
         for p in repository_generator(10):
             repository = fill_repository(p)
             writer.writerow(repository)
+
+            pbar.update(1)
 
 if __name__ == "__main__":
     main()
